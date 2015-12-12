@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package concretePredictionAlgorithms;
-import interfaces.*;
+package internal.concretePredictionAlgorithms;
+import internal.interfaces.AIPredictionAlgorithm;
 import java.util.*;
 
 import org.encog.neural.networks.*;
@@ -13,7 +13,7 @@ import org.encog.neural.networks.training.*;
 import org.encog.neural.networks.training.propagation.resilient.*;
 import org.encog.neural.networks.layers.BasicLayer; 
 import org.encog.engine.network.activation.*;
-import utilities.AudioSegmentationUtils;
+import internal.utilities.AudioSegmentationUtils;
 
 /**
  *

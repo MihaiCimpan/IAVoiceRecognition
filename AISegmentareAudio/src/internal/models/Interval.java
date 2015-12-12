@@ -1,3 +1,5 @@
+package internal.models;
+
 class Interval {
 
     private String text;

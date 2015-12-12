@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package internal.interfaces;
 
 import java.util.*;
 /**
@@ -12,5 +12,7 @@ import java.util.*;
  */
 public interface AIVocalicThresholdEstimator 
 {   
+    //this is the vocalic boundary. Anything greater is considered
+    // to be a part of the consonant zone.
     public double estimateBestVocalicThresholdFromList(List<Double> errorList);
 }

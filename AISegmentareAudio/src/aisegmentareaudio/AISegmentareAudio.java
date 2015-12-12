@@ -5,8 +5,8 @@
  */
 package aisegmentareaudio;
 
-import interfaces.*;
-import concretePredictionAlgorithms.*;
+import internal.concretePredictionAlgorithms.EncogNNPrediction;
+import internal.interfaces.AIPredictionAlgorithm;
 import java.util.*;
 
 
