@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIGaussianParametersEstimator.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/models/GaussianParametersPair.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIVocalicThresholdEstimator.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/aisegmentareaudio/AISegmentareAudio.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/utilities/AudioSegmentationUtils.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/models/GaussianParameters.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIPredictionAlgorithm.java</file>
+            <file>file:/E:/Git/AISegmentareAudio/src/concretePredictionAlgorithms/EncogNNPrediction.java</file>
+        </group>
+    </open-files>
+</project-private>
