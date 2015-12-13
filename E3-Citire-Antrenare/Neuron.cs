@@ -52,7 +52,6 @@ namespace RNpredictivClass
                     output[i] = result;
                 }
                 global = (global + eg)/2;
-                Console.WriteLine(global);
             } while (Math.Abs(eg - global) > 0);
             Write(output);
         }
@@ -129,6 +128,11 @@ namespace RNpredictivClass
             Console.WriteLine("BitDepth: " + fmtBitDepth);
             Console.WriteLine("Channels: " + fmtChannels);
             Console.WriteLine("Average BPS : " + fmtAvgBps);
+            Console.WriteLine("Content:");
+            foreach (var dataByte in dataBytes)
+            {
+                Console.WriteLine(dataByte);
+            }
         }
 
         private double[] GenerateRandom(int length, double range)
