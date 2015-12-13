@@ -128,6 +128,7 @@ namespace RNpredictivClass
             Console.WriteLine("BitDepth: " + fmtBitDepth);
             Console.WriteLine("Channels: " + fmtChannels);
             Console.WriteLine("Average BPS : " + fmtAvgBps);
+            
             Console.WriteLine("Content:");
             foreach (var dataByte in dataBytes)
             {
