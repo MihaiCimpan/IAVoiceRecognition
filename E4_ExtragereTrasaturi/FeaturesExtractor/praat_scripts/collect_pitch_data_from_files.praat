@@ -50,7 +50,7 @@ for ifile to numberOfFiles
 	filename$ = Get string... ifile
 	# A sound file is opened from the listing:
 	Read from file... 'sound_directory$''filename$'
-	# Starting from here, you can add everything that should be 
+	# Starting from here, you can add everything that should be
 	# repeated for every sound file that was opened:
 	soundname$ = selected$ ("Sound", 1)
 	To Pitch... time_step minimum_pitch maximum_pitch

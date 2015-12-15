@@ -1,15 +1,15 @@
-# Source: http://www.helsinki.fi/~lennes/praat-scripts/public/collect_pitch_data_from_files.praat
+# Source: http://www.helsinki.fi/~lennes/praat-scripts/public/collect_formant_data_from_files.praat
 
 # This script goes through sound and TextGrid files in a directory,
-# opens each pair of Sound and TextGrid, calculates the pitch maximum
-# of each labeled interval, and saves results to a text file.
+# opens each pair of Sound and TextGrid, calculates the formant values
+# at the midpoint of each labeled interval, and saves results to a text file.
 # To make some other or additional analyses, you can modify the script
 # yourself... it should be reasonably well commented! ;)
 #
 # This script is distributed under the GNU General Public License.
 # Copyright 4.7.2003 Mietta Lennes
 
-form Analyze pitch maxima from labeled segments in files
+form Analyze formant values from labeled segments in files
 	comment Directory of sound files
 	text sound_directory D:\tmp\
 	sentence Sound_file_extension .wav
@@ -17,13 +17,15 @@ form Analyze pitch maxima from labeled segments in files
 	text textGrid_directory D:\tmp\
 	sentence TextGrid_file_extension .TextGrid
 	comment Full path of the resulting text file:
-	text resultfile D:\tmp\pitchresults.txt
+	text resultfile D:\tmp\formantresults.txt
 	comment Which tier do you want to analyze?
 	sentence Tier segments
-	comment Pitch analysis parameters
+	comment Formant analysis parameters
 	positive Time_step 0.01
-	positive Minimum_pitch_(Hz) 75
-	positive Maximum_pitch_(Hz) 300
+	integer Maximum_number_of_formants 5
+	positive Maximum_formant_(Hz) 5500_(=adult female)
+	positive Window_length_(s) 0.025
+	real Preemphasis_from_(Hz) 50
 endform
 
 # Here, you make a listing of all the sound files in a directory.
@@ -41,7 +43,7 @@ endif
 # Write a row with column titles to the result file:
 # (remember to edit this if you add or change the analyses!)
 
-titleline$ = "Filename	Segment label	Maximum pitch (Hz)'newline$'"
+titleline$ = "Filename	Segment label	F1 (Hz)	F2 (Hz)	F3 (Hz)'newline$'"
 fileappend "'resultfile$'" 'titleline$'
 
 # Go through all the sound files, one by one:
@@ -50,10 +52,10 @@ for ifile to numberOfFiles
 	filename$ = Get string... ifile
 	# A sound file is opened from the listing:
 	Read from file... 'sound_directory$''filename$'
-	# Starting from here, you can add everything that should be 
+	# Starting from here, you can add everything that should be
 	# repeated for every sound file that was opened:
 	soundname$ = selected$ ("Sound", 1)
-	To Pitch... time_step minimum_pitch maximum_pitch
+	To Formant (burg)... time_step maximum_number_of_formants maximum_formant window_length preemphasis_from
 	# Open a TextGrid by the same name:
 	gridfile$ = "'textGrid_directory$''soundname$''textGrid_file_extension$'"
 	if fileReadable (gridfile$)
@@ -68,12 +70,14 @@ for ifile to numberOfFiles
 				# if the interval has an unempty label, get its start and end:
 				start = Get starting point... tier interval
 				end = Get end point... tier interval
-				# get the Pitch maximum at that interval
-				select Pitch 'soundname$'
-				pitchmax = Get maximum... start end Hertz Parabolic
-				printline 'pitchmax'
+				midpoint = (start + end) / 2
+				# get the formant values at that interval
+				select Formant 'soundname$'
+				f1 = Get value at time... 1 midpoint Hertz Linear
+				f2 = Get value at time... 2 midpoint Hertz Linear
+				f3 = Get value at time... 3 midpoint Hertz Linear
 				# Save result to text file:
-				resultline$ = "'soundname$'	'label$'	'pitchmax''newline$'"
+				resultline$ = "'soundname$'	'label$'	'f1'	'f2'	'f3''newline$'"
 				fileappend "'resultfile$'" 'resultline$'
 				select TextGrid 'soundname$'
 			endif
@@ -84,7 +88,7 @@ for ifile to numberOfFiles
 	endif
 	# Remove the temporary objects from the object list
 	select Sound 'soundname$'
-	plus Pitch 'soundname$'
+	plus Formant 'soundname$'
 	Remove
 	select Strings list
 	# and go on with the next sound file!

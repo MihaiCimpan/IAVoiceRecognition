@@ -1,0 +1,20 @@
+=== FeaturesExtractor ===
+
+Acest modul ofera posibilitatea extragerii urmatoarelor trasaturi din fisiere audio
+(eventual folosindu-se de adnotarile obtinute la alti pasi). Trasaturi extrase:
+
+- F0 (frecventa fundamentala/pitch)
+- F1-F3, eventual F4 (formantii)
+- MFCC (mel-frequency cepstral coeficients)
+
+=== Modul de functionare ===
+
+Modulul, scris in python, va apela script-uri praat furnizand parametrii necesari si va procesa rezultatele pentru ca
+acestea sa fie folosite in alti pasi.
+
+=== Dependinte ===
+
+- python 2.x
+- praat.exe
+
+Fisierul de config va fi folosit pentru a initializa unele variabile folosite in restul modulului.

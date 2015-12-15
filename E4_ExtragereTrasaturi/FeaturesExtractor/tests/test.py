@@ -1,3 +1,7 @@
+"""
+    This script tests the F0 extraction script.
+"""
+
 import os
 from subprocess import Popen
 
