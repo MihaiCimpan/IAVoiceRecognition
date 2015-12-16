@@ -13,6 +13,8 @@ namespace RNpredictivClass
         private const double Eta = 0.01;
         private readonly int k;
 
+        #region Antrenare
+
         public Neuron(int n)
         {
             k = n;
@@ -53,7 +55,18 @@ namespace RNpredictivClass
                 }
                 global = (global + eg)/2;
             } while (Math.Abs(eg - global) > 0);
-            Write(output);
+            Write(output,"Output.txt");
+        }
+
+        private double[] GenerateRandom(int length, double range)
+        {
+            double[] r = new double[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                r[i] = Rand(range);
+            }
+            return r;
         }
 
         private double Rand(double range)
@@ -83,18 +96,9 @@ namespace RNpredictivClass
             return values.ToArray();
         }
 
-        private void Write(IEnumerable<double> output)
-        {
-            StreamWriter file;
-            using (file = new StreamWriter("Output.txt"))
-            {
-                foreach (var d in output)
-                {
-                    file.WriteLine(d.ToString(CultureInfo.InvariantCulture));
-                }
-            }
-        }
+        #endregion
 
+        #region ParsareWav
         public void ParseWav(string filename)
         {
             BinaryReader reader = new BinaryReader(new MemoryStream(File.ReadAllBytes(filename)));
@@ -118,33 +122,75 @@ namespace RNpredictivClass
 
             int dataId = reader.ReadInt32();
             int dataSize = reader.ReadInt32();
+            double[] data;
             byte[] dataBytes = reader.ReadBytes(dataSize);
+
+            if (fmtChannels.Equals(2))
+                dataBytes = StereoToMono(dataBytes);
+
+            var color = Console.ForegroundColor;
+
+            if (!fmtSampleRate.Equals(16000))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Recommended 16khz wav file,this is a {0}khz wav file.", fmtSampleRate/1000);
+                Console.ForegroundColor = color;
+                return;
+            }
 
             Console.WriteLine("chunkID :" + chunkId);
             Console.WriteLine("fileSize: " + fileSize);
-            Console.WriteLine("riffType: " + riffType);
-            Console.WriteLine("ID: " + fmtId);
             Console.WriteLine("SampleRate: " + fmtSampleRate);
             Console.WriteLine("BitDepth: " + fmtBitDepth);
             Console.WriteLine("Channels: " + fmtChannels);
-            Console.WriteLine("Average BPS : " + fmtAvgBps);
-            
-            Console.WriteLine("Content:");
-            foreach (var dataByte in dataBytes)
+
+            if (fmtBitDepth.Equals(16))
             {
-                Console.WriteLine(dataByte);
-            }
+                data = new double[dataSize / 2];
+                for (int n = 0; n < dataSize / 2; n++)
+                {
+                    data[n] = BitConverter.ToInt16(dataBytes, n * 2) / 32768f;
+                }
+                try
+                {
+                    Write(data,"DataSet.txt");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Output written!");
+                    Console.ForegroundColor = color;
+                }
+                catch (Exception e)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Message);
+                    Console.ForegroundColor = color;
+                }
+            }  
         }
 
-        private double[] GenerateRandom(int length, double range)
+        private static byte[] StereoToMono(byte[] input)
         {
-            double[] r = new double[length];
-
-            for (int i = 0; i < length; i++)
+            byte[] output = new byte[input.Length / 2];
+            int outputIndex = 0;
+            for (int n = 0; n < input.Length; n += 4)
             {
-                r[i] = Rand(range);
+                output[outputIndex++] = input[n];
+                output[outputIndex++] = input[n + 1];
             }
-            return r;
+            return output;
+        }
+
+        #endregion
+
+        private void Write(IEnumerable<double> output, string filename)
+        {
+            StreamWriter file;
+            using (file = new StreamWriter(@filename))
+            {
+                foreach (var d in output)
+                {
+                    file.WriteLine(d.ToString(CultureInfo.InvariantCulture));
+                }
+            }
         }
     }
 }
