@@ -1,7 +1,8 @@
 === FeaturesExtractor ===
 
-Acest modul ofera posibilitatea extragerii urmatoarelor trasaturi din fisiere audio
-(eventual folosindu-se de adnotarile obtinute la alti pasi). Trasaturi extrase:
+Acest modul ofera posibilitatea extragerii urmatoarelor trasaturi din fisiere
+audio (eventual folosindu-se de adnotarile obtinute la alti pasi).
+Trasaturi extrase:
 
 - F0 (frecventa fundamentala/pitch)
 - F1-F3, eventual F4 (formantii)
@@ -9,8 +10,13 @@ Acest modul ofera posibilitatea extragerii urmatoarelor trasaturi din fisiere au
 
 === Modul de functionare ===
 
-Modulul, scris in python, va apela script-uri praat furnizand parametrii necesari si va procesa rezultatele pentru ca
-acestea sa fie folosite in alti pasi.
+Modulul va apela script-uri praat furnizand parametrii necesari si va procesa
+rezultatele pentru ca acestea sa fie folosite in alti pasi.
+
+Fisierul de configuratie folosit la rularea intregului modul este config.py.
+
+Toate path-urile de directoare trebuie sa se termine in "/" sau "\".
+
 
 === Dependinte ===
 

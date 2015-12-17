@@ -5,7 +5,7 @@
 import os
 from subprocess import Popen
 
-praat_loc = r'.\Praat.exe'
+praat_loc = r'..\bin\Praat.exe'
 script_loc = r'.\max_pitch.praat'
 sound_loc = r'.\sound_files\\'
 

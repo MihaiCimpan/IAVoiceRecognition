@@ -1,4 +1,5 @@
 # Source: http://www.helsinki.fi/~lennes/praat-scripts/public/collect_pitch_data_from_files.praat
+# Source: http://www.helsinki.fi/~lennes/praat-scripts/public/collect_pitch_data_from_files.praat
 
 # This script goes through sound and TextGrid files in a directory,
 # opens each pair of Sound and TextGrid, calculates the pitch maximum
@@ -34,7 +35,7 @@ numberOfFiles = Get number of strings
 
 # Check if the result file exists:
 if fileReadable (resultfile$)
-	# pause The result file 'resultfile$' already exists! Do you want to overwrite it?
+	pause The result file 'resultfile$' already exists! Do you want to overwrite it?
 	filedelete 'resultfile$'
 endif
 
