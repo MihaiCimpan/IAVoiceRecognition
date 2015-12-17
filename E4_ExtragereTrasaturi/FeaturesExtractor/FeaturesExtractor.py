@@ -4,9 +4,7 @@ on the input arguments (config file). """
 from subprocess import Popen, PIPE
 from config import praat_location, f0_parameters
 
-if __name__ == "__main__":
-    print "Praat location:", praat_location
-
+def extract_f0():
     print "[F0] Input parameters:", str(f0_parameters)
 
     cmd = "{} -a --run {} {} {} {} {} {} {} {} {} {}".\
@@ -27,3 +25,8 @@ if __name__ == "__main__":
     ret = process.communicate()
     print "[F0] Return code:", process.returncode
     print "[F0] Output:", ret[0], ret[1]
+
+if __name__ == "__main__":
+    print "Praat location:", praat_location
+    
+    extract_f0()

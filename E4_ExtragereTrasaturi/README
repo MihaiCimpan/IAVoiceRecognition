@@ -18,6 +18,10 @@ Fisierul de configuratie folosit la rularea intregului modul este config.py.
 Toate path-urile de directoare trebuie sa se termine in "/" sau "\".
 
 
+=== Rulare ===
+
+Se specifica parametrii necesari in fisierul config.py, apoi se ruleaza FeaturesExtractor.py.
+
 === Dependinte ===
 
 - python 2.x
