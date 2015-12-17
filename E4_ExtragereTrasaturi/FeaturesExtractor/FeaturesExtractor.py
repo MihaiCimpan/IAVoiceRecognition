@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     print "[F0] Input parameters:", str(f0_parameters)
 
-    cmd = "{} --run {} {} {} {} {} {} {} {} {} {}".\
+    cmd = "{} -a --run {} {} {} {} {} {} {} {} {} {}".\
         format(praat_location, f0_parameters['script_path'],
                f0_parameters['sound_directory'],
                f0_parameters['Sound_file_extension'],
@@ -26,4 +26,4 @@ if __name__ == "__main__":
                     universal_newlines=True)
     ret = process.communicate()
     print "[F0] Return code:", process.returncode
-    print "[F0] Output:", ret
+    print "[F0] Output:", ret[0], ret[1]
