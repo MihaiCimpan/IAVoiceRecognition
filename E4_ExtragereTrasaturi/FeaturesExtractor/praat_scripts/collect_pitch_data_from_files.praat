@@ -34,7 +34,7 @@ numberOfFiles = Get number of strings
 
 # Check if the result file exists:
 if fileReadable (resultfile$)
-	pause The result file 'resultfile$' already exists! Do you want to overwrite it?
+	# pause The result file 'resultfile$' already exists! Do you want to overwrite it?
 	filedelete 'resultfile$'
 endif
 
