@@ -6,11 +6,26 @@ Trasaturi extrase:
 
 - F0 (frecventa fundamentala/pitch) 
 - F1-F3, eventual F4 (formantii)
-- MFCC (mel-frequency cepstral coeficients) (TODO)
+- MFCC (mel-frequency cepstral coeficients)
 
 === Modul de functionare ===
 
-Executabilul praat.exe permite rularea de scripturi utilizator.
+Executabilul praat.exe permite rularea de scripturi utilizator. Scripturi care
+pot fi folosite (au fost modificate pentru a se mula cerintelor proiectului):
+
+- collect_formant_data_from_files.praat
+	- pentru fiecare fisier din folderul de intrare se vor calcula valorile F1-F4
+  	din 0.01 in 0.01 secunde. Rezultatul este scris intr-un fisier text.
+
+- collect_pitch_data_from_files.praat
+	- pentru fiecare fisier din folderul de intrare se va calcula valoarea F0
+  	din 0.01 in 0.01 secunde. Rezultatul este scris intr-un fisier text.
+
+- mfcc.praat
+	- pentru fiecare fisier din folderul de intrare se va creea un obiect de tip
+        Matrix (http://www.fon.hum.uva.nl/praat/manual/Matrix.html) care reprezinta
+        valorile MFCC. Va rezulta cate un fisier text pentru fiecare fisier audio.
+
 
 === Rulare ===
 
