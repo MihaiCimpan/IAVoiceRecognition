@@ -4,27 +4,27 @@ Acest modul ofera posibilitatea extragerii urmatoarelor trasaturi din fisiere
 audio (eventual folosindu-se de adnotarile obtinute la alti pasi).
 Trasaturi extrase:
 
-- F0 (frecventa fundamentala/pitch)
+- F0 (frecventa fundamentala/pitch) 
 - F1-F3, eventual F4 (formantii)
-- MFCC (mel-frequency cepstral coeficients)
+- MFCC (mel-frequency cepstral coeficients) (TODO)
 
 === Modul de functionare ===
 
-Modulul va apela script-uri praat furnizand parametrii necesari si va procesa
-rezultatele pentru ca acestea sa fie folosite in alti pasi.
-
-Fisierul de configuratie folosit la rularea intregului modul este config.py.
-
-Toate path-urile de directoare trebuie sa se termine in "/" sau "\".
-
+Executabilul praat.exe permite rularea de scripturi utilizator.
 
 === Rulare ===
 
-Se specifica parametrii necesari in fisierul config.py, apoi se ruleaza FeaturesExtractor.py.
+Este posibila apelarea in trei moduri:
 
-=== Dependinte ===
+1) Se deschide scriptul dorit din interfata grafica (Praat -> Open praat script),
+se specifica argumentele dupa care se ruleaza.
 
-- python 2.x
-- praat.exe
+2) Prin linia de comanda: praat.exe --open <path catre script>. Va fi deschisa
+interfata GUI prin care se pot spefifica argumentele + rula scriptul.
 
-Fisierul de config va fi folosit pentru a initializa unele variabile folosite in restul modulului.
+sau
+
+3) praat.exe --run <path catre script> <argument 1> <argument 2> ... <argument n>
+
+Atentie: Cararile catre directoare trebuie sa se termina in '\' sau '/' pentru ca
+scripturile sa functioneze corect. 
