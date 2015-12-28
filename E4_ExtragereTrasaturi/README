@@ -43,3 +43,22 @@ sau
 
 Atentie: Cararile catre directoare trebuie sa se termina in '\' sau '/' pentru ca
 scripturile sa functioneze corect. 
+
+
+
+
+
+=== Scriptul python ===
+
+Motivatie: automatizarea task-ului de rulare a scripturilor praat pe o cantitate mare de fisiere
+Atentie: praat merge recursiv pe directoare si cauta fisierele .wav si .TextGrid.
+
+Inainte de a rula trebuie: 
+	- in fisierul python_scripts/data_dir trebuie scris path-ul complet catre fisierele .wav si .TextGrid
+
+Pentru a rula:
+	python3 process_files.py [mfcc] [pitch] [formant]
+	- daca "mfcc" este dat ca argument atunci in directorul python_scripts/results/mfcc for fi generate fisiere .txt cu informatii despre fiecare fisier in parte
+	- daca "pitch" este dat ca argument, atunci in directorul python_scripts/results/pitch.txt se vor afla datele finale
+	- daca "formant" este dat ca argument, atunci in directorul python_scripts/results/formants.txt se vor afla datele finale
+

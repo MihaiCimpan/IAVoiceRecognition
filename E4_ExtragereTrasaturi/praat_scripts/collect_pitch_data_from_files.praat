@@ -12,17 +12,12 @@
 # Copyright 4.7.2003 Mietta Lennes
 
 form Analyze pitch maxima from labeled segments in files
-	comment Directory of sound files
 	text sound_directory C:\_facultate\IA\audio_input\
 	sentence Sound_file_extension .wav
-	comment Directory of TextGrid files
 	text textGrid_directory C:\_facultate\IA\audio_input\
 	sentence TextGrid_file_extension .TextGrid
-	comment Full path of the resulting text file:
 	text resultfile C:\_facultate\IA\audio_input\pitchresults.txt
-	comment Which tier do you want to analyze?
 	sentence Tier segments
-	comment Pitch analysis parameters
 	positive Time_step 0.01
 	positive Minimum_pitch_(Hz) 75
 	positive Maximum_pitch_(Hz) 300
