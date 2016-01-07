@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -11,54 +10,53 @@ namespace RNpredictivClass
         private double[] w;
         private double[] val;
         private const double Eta = 0.01;
-        private readonly int k;
+        private int k;
 
         #region Antrenare
 
-        public Neuron(int n)
-        {
-            k = n;
-        }
-
-        public void SetValues(string filename,double range)
+        public void SetValues(string filename)
         {
             val = Read(filename);
-            w = GenerateRandom(k, range);
+            k = (int)Math.Round(0.01 * val.Length);
+            w = GenerateRandom(k, Math.Round(val.Max()));
         }
 
         public void Antrenare()
         {
+            if (k == 0)
+                return;
+
             double eg;
             double global = 0;
-            var output = new double[val.Length];
+            double[] output = new double[val.Length];
+            double[] errors = new double[val.Length];
             do
             {
                 for (int i = 0; i < val.Length - k; i++)
                 {
                     var fer = val.Skip(i).Take(k).ToArray();
                     var result = fer.Zip(w, (a, b) => a*b).ToArray().Sum();
-                    var err = result - val[i + 1];
+                    var err = result - val[i + k];
 
                     for (int j = 0; j < k; j++)
                     {
                         w[j] = w[j] - Eta*val[j]*err;
                     }
-                }
-                eg = 0;
-                for (int i = 0; i < val.Length - k; i++)
-                {
-                    var fer = val.Skip(i).Take(k).ToArray();
-                    var result = fer.Zip(w, (a, b) => a*b).ToArray().Sum();
-                    var err = result - val[i + 1];
-                    eg = eg + Math.Abs(err);
+
+                    result = fer.Zip(w, (a, b) => a * b).ToArray().Sum();
+                    err = result - val[i + k];
+                    errors[i] = err;
                     output[i] = result;
                 }
+                eg = errors.Aggregate<double, double>(0, (current, error) => current + Math.Abs(error));
                 global = (global + eg)/2;
-            } while (Math.Abs(eg - global) > 0);
+                Console.WriteLine(global);
+            } while (Math.Abs(eg - global) > 0.1);
             Write(output,"Output.txt");
+            Write(errors,"GlobalErrors.txt");
         }
 
-        private double[] GenerateRandom(int length, double range)
+        private static double[] GenerateRandom(int length, double range)
         {
             double[] r = new double[length];
 
@@ -69,31 +67,10 @@ namespace RNpredictivClass
             return r;
         }
 
-        private double Rand(double range)
+        private static double Rand(double range)
         {
             Random random = new Random();
             return random.NextDouble() * (range - (-1 * range)) + (-1 * range);
-        }
-
-        private double[] Read(string filename)
-        {
-            List<double> values = new List<double>();
-            using (TextReader reader = File.OpenText(filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    try
-                    {
-                        values.Add(double.Parse(line, CultureInfo.InvariantCulture));
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                }
-            }
-            return values.ToArray();
         }
 
         #endregion
@@ -181,16 +158,37 @@ namespace RNpredictivClass
 
         #endregion
 
-        private void Write(IEnumerable<double> output, string filename)
+        private static void Write(IEnumerable<double> output, string filename)
         {
             StreamWriter file;
             using (file = new StreamWriter(@filename))
             {
-                foreach (var d in output)
+                foreach (double d in output)
                 {
-                    file.WriteLine(d.ToString(CultureInfo.InvariantCulture));
+                    file.WriteLine(d);
                 }
             }
+        }
+
+        private static double[] Read(string filename)
+        {
+            List<double> values = new List<double>();
+            using (TextReader reader = File.OpenText(filename))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    try
+                    {
+                        values.Add(Double.Parse(line));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+            return values.ToArray();
         }
     }
 }
