@@ -5,6 +5,7 @@
  */
 package internal.concretePredictionAlgorithms;
 import internal.interfaces.AIPredictionAlgorithm;
+import internal.models.Window;
 import java.util.*;
 
 import org.encog.neural.networks.*;
@@ -48,9 +49,11 @@ public class EncogNNPrediction implements AIPredictionAlgorithm
             {
                 int howManyIterations = currentIteration == 0 ? 500 : 100;
                 double error = this.trainNetworkWithSample(basicNetwork, ts, howManyIterations);
-                list.add(error);
                 
-                System.out.println(list.size());
+                
+                // eroarea trebuie raportata la energia ferestrei
+                error = error / this.energyOfInputFromTs(ts);
+                list.add(error);
             }
             else
                 shouldStop = true;
@@ -65,8 +68,19 @@ public class EncogNNPrediction implements AIPredictionAlgorithm
                                                         int windowStep, int iteration)
     {
         
-        double[] inputWindow = AudioSegmentationUtils.extractWindow(source, windowSize, windowStep, iteration);
-        double[] shouldBePredictedWindow = AudioSegmentationUtils.extractWindow(source, windowSize, windowStep, iteration+1);
+        Window inputWindoww = AudioSegmentationUtils.extractWindow(source, windowSize, windowStep, 
+                iteration);
+        Window shouldBePredictedWindoww = AudioSegmentationUtils.extractWindow(source, windowSize, windowStep, 
+                iteration+1);
+        
+        if(inputWindoww == null || shouldBePredictedWindoww == null)
+        {
+            return null;
+        }
+        
+        double[] inputWindow = AudioSegmentationUtils.extractWindow(source, windowSize, windowStep, 
+                iteration).getValues();
+        double[] shouldBePredictedWindow = shouldBePredictedWindoww.getValues();
         
         if(inputWindow != null && shouldBePredictedWindow != null)
         {
@@ -120,4 +134,14 @@ public class EncogNNPrediction implements AIPredictionAlgorithm
         return network;
     }
     
+    private double energyOfInputFromTs(NeuralNetworkTrainingSample ts)
+    {
+        double en = 0.0;
+        double[] input = new double[ts.inputData.length];
+        for(int i=0; i<input.length; i++)
+        {
+            input[i] = ts.inputData[i][0];
+        }
+        return AudioSegmentationUtils.energyCalculatedWithHammingWindow(input);
+    }
 }
