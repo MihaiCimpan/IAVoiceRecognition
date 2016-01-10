@@ -9,12 +9,16 @@ import external.interfaces.AIVocalicZonesEstimator;
 
 /**
  *
- * @author Costi
+ * @author IA_AUDIO_Team
+ * 
+ * This is the class with which the clients of our library will interact
+ * Basically, we will instatiate one of the best estimators and return it. 
  */
 public class AudioSegmentationFactory 
 {
     public static AIVocalicZonesEstimator createVocalicZonesEstimator()
     {
+        //
         return null;
     }
 }

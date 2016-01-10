@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIGaussianParametersEstimator.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/models/GaussianParametersPair.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIVocalicThresholdEstimator.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/aisegmentareaudio/AISegmentareAudio.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/utilities/AudioSegmentationUtils.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/models/GaussianParameters.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/interfaces/AIPredictionAlgorithm.java</file>
-            <file>file:/E:/Git/AISegmentareAudio/src/concretePredictionAlgorithms/EncogNNPrediction.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/ConcreteAnnotationSmoothers/NaiveMNeighborsSmoother.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/utilities/AudioSegmentationUtils.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/external/concreteSegmentators/PitchBasedSegmentator.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/models/AnnotatedWindow.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/concreteWindowClassifiers/PitchWindowClassifier.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/aisegmentareaudio/AISegmentareAudio.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/concreteWindowClassifiers/HammingEnergyZCRClassifier.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/interfaces/AnnotationsSmoother.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/external/interfaces/AIAudioSegmentator.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/models/IndexRange.java</file>
+            <file>file:/E:/Git/IAVoiceRecognition/AISegmentareAudio/src/internal/concreteWindowClassifiers/SimpleEnergyAndZCRClassifier.java</file>
         </group>
     </open-files>
 </project-private>

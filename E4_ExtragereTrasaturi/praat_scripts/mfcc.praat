@@ -27,7 +27,7 @@ for ifile to numberOfFiles
     #CONVERT THEM AND SAVE THEM
     select Sound 'baseFile$'
     # To MelFilter... 0.015 0.005 100 100 0
-    To MFCC... 12 0.015 0.005 100.0 100.0 0.0
+    To MFCC... 12 0.025 0.01 100.0 100.0 0.0
     To Matrix
     Write to matrix text file... 'directory$'/'baseFile$'.txt
 
