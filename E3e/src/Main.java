@@ -138,10 +138,10 @@ public class Main {
 
     public static void main(String args[]) {
         try {
-            Annotation manual = loadFromTextGrid("B527eFc.TextGrid", "cv");
-            Annotation auto = loadFromTextFile("B527eFc.praat");
+            Annotation manual = loadFromTextGrid("B527eJa.TextGrid", "cv");
+            Annotation auto = loadFromTextFile("B527eJa.praat");
 
-            System.out.println(manual.compareTo1(auto));
+            System.out.println(manual.compareTo2(auto));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
