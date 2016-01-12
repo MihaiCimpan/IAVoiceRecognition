@@ -1,0 +1,74 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.27725 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "cv" 
+        xmin = 0 
+        xmax = 1.27725 
+        intervals: size = 8 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.06324866324241939 
+            text = "c" 
+        intervals [2]:
+            xmin = 0.06324866324241939 
+            xmax = 0.1649129031958265 
+            text = "v" 
+        intervals [3]:
+            xmin = 0.1649129031958265 
+            xmax = 0.2752294188899491 
+            text = "c" 
+        intervals [4]:
+            xmin = 0.2752294188899491 
+            xmax = 0.588874414490886 
+            text = "v" 
+        intervals [5]:
+            xmin = 0.588874414490886 
+            xmax = 0.9306393062491482 
+            text = "c" 
+        intervals [6]:
+            xmin = 0.9306393062491482 
+            xmax = 1.0820541317116694 
+            text = "v" 
+        intervals [7]:
+            xmin = 1.0820541317116694 
+            xmax = 1.1988598542113287 
+            text = "c" 
+        intervals [8]:
+            xmin = 1.1988598542113287 
+            xmax = 1.27725 
+            text = "v" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "word" 
+        xmin = 0 
+        xmax = 1.27725 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.1649129031958265 
+            text = "Sunt" 
+        intervals [2]:
+            xmin = 0.1649129031958265 
+            xmax = 0.5174931396299831 
+            text = "singuri" 
+        intervals [3]:
+            xmin = 0.5174931396299831 
+            xmax = 1.27725 
+            text = "acasa" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "sentence" 
+        xmin = 0 
+        xmax = 1.27725 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.27725 
+            text = "Sunt singuri acasa" 

@@ -75,6 +75,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        result.addInterval(new Interval(1000, "c'"));
 
         return result;
     }
@@ -130,13 +131,17 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        result.addInterval(new Interval(1000, "c'"));
 
         return result;
     }
 
     public static void main(String args[]) {
         try {
-            loadFromTextFile("praat.out");
+            Annotation manual = loadFromTextGrid("B527eJa.TextGrid", "cv");
+            Annotation auto = loadFromTextFile("B527eJa.praat");
+
+            System.out.println(manual.compareTo2(auto));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
