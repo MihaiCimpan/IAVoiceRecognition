@@ -3,10 +3,6 @@ import sys
 import os
 import shutil
 
-path = sys.argv[1]
-emotion = sys.argv[2]
-procent_antrenare = float(sys.argv[3])
-procent_test = float(sys.argv[4])
 
 def search_file(path, emotion):
 	contor = 0
@@ -35,18 +31,18 @@ def impartire_fisiere(path):
 		contor, lista_fisiere = search_file(path, i)
 		nr_antrenare = int(procent_antrenare/100*contor) + 1
 		nr_test = int(procent_test/100*contor)
-		print(contor)
 		print(nr_antrenare)
 		print(nr_test)
-		print('-----')
 		for j in range(0, nr_antrenare):
 			shutil.copy2(path + '\\' + lista_fisiere[j], new)
-			os.remove(path + '\\' + lista_fisiere[j])
 
 		for x in range(nr_antrenare + 1, nr_test + nr_antrenare - 1):
 			shutil.copy2(path + '\\' + lista_fisiere[x], new2)
-			os.remove(path + '\\' + lista_fisiere[x])
 
-
-
-impartire_fisiere(path)
+if len(sys.argv) < 4:
+	print("Prea putini parametrii. Scriptul se apeleaza in felul urmator: separare.py path_director_muzica procent_antrenare procent_test")
+else:
+	path = sys.argv[1]
+	procent_antrenare = float(sys.argv[2])
+	procent_test = float(sys.argv[3])
+	impartire_fisiere(path)
