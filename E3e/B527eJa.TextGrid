@@ -1,0 +1,82 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.213875 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "cv" 
+        xmin = 0 
+        xmax = 1.213875 
+        intervals: size = 10 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.07655629948946087 
+            text = "c" 
+        intervals [2]:
+            xmin = 0.07655629948946087 
+            xmax = 0.1916778003754694 
+            text = "v" 
+        intervals [3]:
+            xmin = 0.1916778003754694 
+            xmax = 0.23073688103322226 
+            text = "c" 
+        intervals [4]:
+            xmin = 0.23073688103322226 
+            xmax = 0.5349865619462448 
+            text = "v" 
+        intervals [5]:
+            xmin = 0.5349865619462448 
+            xmax = 0.5658226782549971 
+            text = "c" 
+        intervals [6]:
+            xmin = 0.5658226782549971 
+            xmax = 0.6439408395705029 
+            text = "v" 
+        intervals [7]:
+            xmin = 0.6439408395705029 
+            xmax = 0.7672853048055119 
+            text = "c" 
+        intervals [8]:
+            xmin = 0.7672853048055119 
+            xmax = 0.9070756987385223 
+            text = "v" 
+        intervals [9]:
+            xmin = 0.9070756987385223 
+            xmax = 1.0797579500675352 
+            text = "c" 
+        intervals [10]:
+            xmin = 1.0797579500675352 
+            xmax = 1.213875 
+            text = "v" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "word" 
+        xmin = 0 
+        xmax = 1.213875 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.1916778003754694 
+            text = "Sunt" 
+        intervals [2]:
+            xmin = 0.1916778003754694 
+            xmax = 0.430143766496487 
+            text = "singuri" 
+        intervals [3]:
+            xmin = 0.430143766496487 
+            xmax = 1.213875 
+            text = "acasa" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "sentence" 
+        xmin = 0 
+        xmax = 1.213875 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.213875 
+            text = "Sunt singuri acasa" 

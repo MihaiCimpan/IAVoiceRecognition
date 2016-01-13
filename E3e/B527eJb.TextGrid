@@ -1,0 +1,78 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.462125 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "cv" 
+        xmin = 0 
+        xmax = 1.462125 
+        intervals: size = 9 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.15659305180361593 
+            text = "c" 
+        intervals [2]:
+            xmin = 0.15659305180361593 
+            xmax = 0.24078253990136186 
+            text = "v" 
+        intervals [3]:
+            xmin = 0.24078253990136186 
+            xmax = 0.3076388980966307 
+            text = "c" 
+        intervals [4]:
+            xmin = 0.3076388980966307 
+            xmax = 0.6419206890729748 
+            text = "v" 
+        intervals [5]:
+            xmin = 0.6419206890729748 
+            xmax = 0.6642061418047311 
+            text = "c" 
+        intervals [6]:
+            xmin = 0.6642061418047311 
+            xmax = 0.8350612794148626 
+            text = "v" 
+        intervals [7]:
+            xmin = 0.8350612794148626 
+            xmax = 0.9489647044882836 
+            text = "c" 
+        intervals [8]:
+            xmin = 0.9489647044882836 
+            xmax = 1.1792477160497652 
+            text = "v" 
+        intervals [9]:
+            xmin = 1.1792477160497652 
+            xmax = 1.462125 
+            text = "c" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "word" 
+        xmin = 0 
+        xmax = 1.462125 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.24078253990136186 
+            text = "Sunt" 
+        intervals [2]:
+            xmin = 0.24078253990136186 
+            xmax = 0.5131602955117164 
+            text = "singuri" 
+        intervals [3]:
+            xmin = 0.5131602955117164 
+            xmax = 1.462125 
+            text = "acasa" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "sentence" 
+        xmin = 0 
+        xmax = 1.462125 
+        intervals: size = 1 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.462125 
+            text = "Sunt singuri acasa" 

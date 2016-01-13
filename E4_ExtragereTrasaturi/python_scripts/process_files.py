@@ -1,5 +1,6 @@
 import subprocess
 import os.path
+import shutil
 
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 praat_exe = os.path.join(root_dir, 'Praat.exe')
@@ -51,7 +52,7 @@ def get_mfcc_data():
         if file.endswith(".txt"):
             if os.path.exists(os.path.join(mfcc_results, file)):
                 os.remove(os.path.join(mfcc_results, file))
-            os.rename(os.path.join(data_path, file), os.path.join(mfcc_results, file))
+            shutil.move(os.path.join(data_path, file), os.path.join(mfcc_results, file))
 
 if __name__ == '__main__':
     import argparse, sys
