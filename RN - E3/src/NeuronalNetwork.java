@@ -1,36 +1,36 @@
+import javax.naming.directory.Attribute;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
- * Created by Adyzds on 12/15/2015.
+ * Created by Adyzds on 12/18/2015.
  */
 public class NeuronalNetwork {
-    private int precision = 80;
+    private int swinSize;
+    private int wStep;
+    private int nInputs;
+    final double eta = 0.1d;
+    double out = 0;
+    double eroare, eg = 0;
+    List<Double> values = new ArrayList<>();
+    List<Double> fereastra = new ArrayList<>();
+    List<Double> swin = new ArrayList<>();
+    List<Double> inputs = new ArrayList<>();
+    List<Double> outputs = new ArrayList<>();
+    List<Double> outputs2 = new ArrayList<>();
+    List<Double> weigths = new ArrayList<>();
+    List<Double> erori = new ArrayList<>();
+    List<Double> eroriGlobale = new ArrayList<>();
+    PrintWriter writer = null;
+    private int precision = 9;
+
     public NeuronalNetwork() {
+        swinSize = 256;
+        wStep = swinSize / 8;
+        nInputs = 5;
 
-    }
-    public void setPrecision(int precision){
-        this.precision = precision;
-    }
-    public List<Double> getGlobalErrors(String fileName){
-
-        Scanner sc;
-        PrintWriter writer = null;
-        final double eta = 0.01d;
-        double out = 0;
-        double eroare, eg = 0;
-        final int dimFereseastra = 800;
-        List<Double> x = new ArrayList<>();
-        List<Double> fereastra = new ArrayList<>();
-        List<Double> w = new ArrayList<>();
-        List<Double> erori = new ArrayList<>();
-        List<Double> eroriGlobale = new ArrayList<>();
-        Integer results[ ] = {new Integer(3), new Integer(5), new Integer(8)};
-
+        weigths = initializeWeights();
 
         try {
             writer = new PrintWriter("out.txt", "UTF-8");
@@ -40,66 +40,116 @@ public class NeuronalNetwork {
 
         }
 
+
+    }
+
+    public List<Double> getGlobalErrors(String fileName) {
+
+
+        Scanner sc;
+        int iterationsNumber;
+        int valuesLength;
+        int j = 1;
+        int y2;
+        int traningTurns;
+        double globalError;
         try {
             sc = new Scanner(new File("Valori.txt"));
             while (sc.hasNext()) {
-                x.add(sc.nextDouble());
+                values.add(sc.nextDouble());
             }
             sc.close();
         } catch (Exception e) {
-            System.err.println("Eroare la citirea labirintului din fisier!");
+            System.err.println("Eroare la citirea valorilor din fisier!");
         }
 
+        valuesLength = values.size();
+        // se sar primele esantioane daca acestea sunt aproximativ egale cu zero
+        /*
 
-        w = initializeWeights();
+         */
 
-        int count = 0;
-        while (count < 50) {
-            for (int i = 0; i < x.size() - 5; i++) {
-                fereastra = x.subList(i, i + 5);
-                out = 0;
-                for (int j = 0; j < 5; j++) {
-//                    System.out.println(w.get(i) + " " + fereastra.get(j) * w.get(j) );
-                    out += fereastra.get(j) * w.get(j);
+        if (valuesLength < swinSize) {
+            System.out.println("Semnalul este prea mic pentru a fi analizat");
+            return null;
+        }
 
+        iterationsNumber = (valuesLength - swinSize + 1) / wStep;
+        System.out.println("IterationsNumber = " + iterationsNumber);
+
+        weigths = initializeWeights();
+
+        for (int i = 0; i < iterationsNumber * wStep - 1; i += wStep) {
+            swin = values.subList(i, i + swinSize);
+            if(j <= 3) traningTurns = 200;
+            else traningTurns = 1;
+
+            for (int k = 0; k < traningTurns; k++) {
+                for (int y = 0; y < swinSize - 5; y++) {
+                    y2 = y;
+                    inputs = swin.subList(y2, y2 + 5);
+
+                    out = 0;
+                    for (int z = 0; z < 5; z++) {
+                        out += inputs.get(z) * weigths.get(z);
+                    }
+                    eroare = out - swin.get(y2 + 5);
+
+                    for (int z = 0; z < 5; z++) {
+                        weigths.set(z, weigths.get(z) - eta * inputs.get(z) * eroare);
+                    }
                 }
-                eroare = out - x.get(i+5) ;
-                if(count == 49){
-                    writer.println(out);
-                    erori.add(eroare);
-                }
 
-                for (int j = 0; j < 5; j++) {
-                    w.set(j, w.get(j) - eta * fereastra.get(j) * eroare);
-                }
+                if ((k == 0 && j > 3) || (k == 199)) {
+                    outputs = new ArrayList<>();
+                    for (int y = 5; y < swinSize - 5; y++) {
+                        inputs = swin.subList(y, y + 5);
 
+                        out = 0;
+                        for (int z = 0; z < 5; z++) {
+                            out += inputs.get(z) * weigths.get(z);
+                        }
+
+                        outputs.add(out);
+
+                    }
+                    double sum = 0, sum2 = 0;
+                    for (int y = 5; y < swinSize - 5; y++) {
+                        sum2 += swin.get(y)* swin.get(y);
+                        sum += (outputs.get(y-5) - swin.get(y)) * (outputs.get(y-5) - swin.get(y)) ;
+                    }
+                    eroriGlobale.add(Math.sqrt(sum)/sum2);
+                }
             }
-
-            count++;
-
+            j++;
         }
 
-        double eroareGlobala = 0;
-        for (int i = 0; i < erori.size() - precision; i++) {
-            if(i%precision == 0 && i != 0){
-                eroriGlobale.add(eroareGlobala);
-                eroareGlobala = 0;
-            }
-            else
-                eroareGlobala += Math.abs(erori.get(i));
+        //median filter
+        for (int i = 0; i < eroriGlobale.size() - precision; i++) {
 
+//            inputs  = eroriGlobale.subList(i, i + precision);
+            System.out.println(eroriGlobale.subList(i, i + precision));
+            inputs = sortArray(eroriGlobale.subList(i, i + precision));
 
+            eroriGlobale.set(precision / 2 + i, inputs.get(precision / 2 ));
         }
+//         average filter
+        for (int i = 0; i < eroriGlobale.size() - precision; i++) {
+            inputs = eroriGlobale.subList(i, i + precision);
+//                     System.out.println(eroriGlobale.subList(i, i + precision));
 
-
+            double sum = 0;
+            for (double err :inputs)
+                sum += err;
+            eroriGlobale.set(precision / 2  + i, sum/precision);
+        }
 
         writer.close();
         PrintWriter writer2 = null;
         try {
             writer2 = new PrintWriter("out2.txt", "UTF-8");
-            for (int i = 0; i < erori.size(); i++) {
-                writer2.println(erori.get(i));
-//                System.out.println(erori.get(i));
+            for (int i = 0; i < eroriGlobale.size(); i++) {
+                writer2.println(eroriGlobale.get(i));
             }
 
         } catch (Exception e) {
@@ -109,8 +159,23 @@ public class NeuronalNetwork {
         finally {
             writer2.close();
         }
-
+//
         return eroriGlobale;
+//        return null;
+    }
+
+    private List<Double> sortArray(List<Double> inputs) {
+        List<Double> array = arrayCopy(inputs);
+        Collections.sort(array);
+        return array;
+    }
+
+    private List<Double> arrayCopy(List<Double> doubles) {
+        ArrayList<Double>copy = new ArrayList<>();
+        for (double d: doubles)
+            copy.add(d);
+        return copy;
+
     }
 
     public static ArrayList<Double> initializeWeights(){
@@ -127,3 +192,5 @@ public class NeuronalNetwork {
         return w;
     }
 }
+
+
