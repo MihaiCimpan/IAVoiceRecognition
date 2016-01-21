@@ -68,8 +68,7 @@ public class Main {
     }
 
     public static ArrayList<Double> readFromWav(File file) {
-        try
-        {
+        try{
             WavFile wavFile = WavFile.openWavFile(file);
             ArrayList<Double> values = new ArrayList<>();
             int numChannels = wavFile.getNumChannels();
