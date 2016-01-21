@@ -157,7 +157,9 @@ public class NeuronalNetwork {
         return eroriGlobale;
 //        return null;
     }
-
+    
+    
+    //functie adaugata pentru citirea direct din fisier .wav E4e
     public List<Double> getGlobalErrors(List<Double> inputValues) {
 
         Scanner sc;
