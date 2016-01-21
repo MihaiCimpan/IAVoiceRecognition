@@ -31,7 +31,7 @@ public class Interval {
     public boolean isVocala() {
         return this.isVocala;
     }
-
+    
     public void setVocala(boolean isVocala) {
         this.isVocala = isVocala;
     }
