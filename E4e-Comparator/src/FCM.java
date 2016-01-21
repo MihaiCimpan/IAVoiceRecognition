@@ -50,6 +50,7 @@ public class FCM {
 				tmp = i;
 			}
 		}
+		
 		int x = ( i - 1 ) / 500;
 		int y = ( i - 1 ) % 500;
 		double poz = (double) y * 1600 / 500;
