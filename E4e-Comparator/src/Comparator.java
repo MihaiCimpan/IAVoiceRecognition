@@ -119,6 +119,5 @@ public class Comparator {
 		procents.add(this.PraatError/sum);
 
 		return procents;
-
 	}
 }
