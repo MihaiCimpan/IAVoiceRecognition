@@ -1,0 +1,144 @@
+@font-face {
+	font-family: 'UbuntuLI';
+	src: url('../fonts/Ubuntu-LI.ttf');
+}
+
+html {
+	height: 100%;
+}
+
+#window-resizer-tooltip {
+	display: none!important;
+}
+
+body {
+	font-family: 'UbuntuLI';
+	height: 100%;
+	width: 100%;
+	display: table;
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+	min-width: 540px;
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffb76b+0,ffa73d+33,ff7c00+68,ff7f04+100 */
+	background: #ffb76b; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #ffb76b 0%, #ffa73d 33%, #ff7c00 68%, #ff7f04 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg,  #ffb76b 0%,#ffa73d 33%,#ff7c00 68%,#ff7f04 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg,  #ffb76b 0%,#ffa73d 33%,#ff7c00 68%,#ff7f04 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+	.button-style {
+		display: inline-block;
+	    position: relative;
+	    top: 2px;
+	    border: 2px solid #fff;
+	    height: 50px;
+	    line-height: 50px;
+	    padding: 0 10px;
+	    margin-left: 25px;
+	    cursor: pointer;
+	    border-radius: 10px;
+
+	    transition: all .3s ease-in-out;
+
+		&:hover {
+			background-color: #fff;
+			color: #ff7f04;
+		}
+	}
+
+	.audio-panel {
+		display: none;
+	}
+
+	.registration-panel, .records-panel, .congratulations-panel {
+		position: relative;
+		width: 300px;
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		margin: 0 auto;
+
+		input[name='user_name'] {
+			margin-bottom: 25px;
+			height: 50px;
+			padding: 0 10px;
+			border-radius: 10px;
+			border: 2px solid #fff;
+			background: transparent;
+			font-size: 22px;
+
+			&:focus {
+				outline: 0;
+			}
+		}
+	}
+
+	.congratulations-panel {
+		display: none;
+	}
+
+	.records-panel {
+		display: none;
+
+		.minus-one {
+			display: none;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			transition: all .5s ease-in-out;
+		}
+
+		.user-data {
+			margin-bottom: 10px;
+			position: relative;
+			display: inline-block;
+		}
+
+		.record-name {
+			display: none;
+		}
+
+		.play-record {
+			margin-right: 25px;
+			margin-left: 0;
+		}
+
+		.emotions-panel {
+			width: 100%;
+		    margin-top: 50px;
+		    display: inline-block;
+		    text-align: center;
+
+		    .left-side, .right-side {
+		    	display: inline-block;
+		    	width: 200px;
+
+		    	.emotion:last-of-type {
+		    		margin-bottom: 0;
+		    	}
+		    }
+
+		    .left-side {
+		    	margin-right: 25px;
+		    }
+
+		    .right-side {
+		    	margin-left: 25px;
+		    }
+
+			.emotion {
+				width: 200px;
+				display: block;
+				margin-left: 0;
+				margin-bottom: 20px;
+
+				&.active-emotion {
+					background-color: #fff;
+					color: #ff7f04;
+				}
+			}
+		}
+	}
+}
