@@ -1,0 +1,23 @@
+pentru toate datele 33: k = 5, euclid => 115/619
+
+pentru toate datele 33: k = 5, manhattan => 174/619
+
+pentru toate datele 33: k = 5, minkowski => 167/619
+
+
+
+pentru toate datele 33: k = 7, euclidian => 116/619
+
+pentru toate datele 33: k = 7, manhattan => 184/619
+
+pentru toate datele 33: k = 7, minkowski => 181/619
+
+
+pentru toate datele 8: k = 5, euclid => 115/619
+pentru toate datele 8: k = 5, manhattan => 69/619
+
+pentru toate datele 33: k = 3, manhattan => 192/619
+
+pentru toate datele 33: k = 3, minkowski => 185/619
+
+pentru toate datele 33: k = 3, euclidian => 114/619
