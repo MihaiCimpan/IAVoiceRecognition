@@ -2,6 +2,7 @@ from os.path import *
 from collections import defaultdict
 from numpy import array, float32, uint8, multiply, arange, random, zeros
 import os
+import re
 
 
 class DataSet(object):
@@ -34,13 +35,17 @@ classes = {
 class Parser(object):
     """Formant data parser"""
 
-    def __init__(self, datadir):
+    datafile_pattern = re.compile('.*(formants|mfcc|pitch).*')
+
+    def __init__(self, datadir, trainingPercent=75, **kwargs):
         super(Parser, self).__init__()
+        self.epoch = 0
+        self.epoch_index = 0
+        self.useddata = kwargs
+        self.trainingPercent = trainingPercent
         self.datadir = datadir
         self.datasets = self.get_datasets()
         self.num_samples = self.datasets.train.emotions.shape[0]
-        self.epoch = 0
-        self.epoch_index = 0
 
     def dense_to_one_hot(self, dense, num_classes=7):
         num_labels = dense.shape[0]
@@ -49,9 +54,14 @@ class Parser(object):
         one_hot.flat[index_offset + dense.ravel()] = 1
         return one_hot
 
+    def used(self, datafile):
+        datatype = Parser.datafile_pattern.match(datafile).group(1)
+        return self.useddata.get(datatype, False)
+
     def get_datasets(self):
         values = defaultdict(list)
-        for _file in os.listdir(self.datadir):
+        datafiles = filter(self.used, os.listdir(self.datadir))
+        for _file in datafiles:
             with open(join(self.datadir, _file)) as f:
                 content = f.readlines()
             data = map(lambda x: x.split(), content)
@@ -62,7 +72,7 @@ class Parser(object):
         emotions = self.dense_to_one_hot(emotions)
         data = array(values.values(), dtype=float32)
         data = multiply(data, 1.0 / 20000.0)
-        divider = (emotions.shape[0] * 75) / 100
+        divider = (emotions.shape[0] * self.trainingPercent) / 100
         return DataSets(DataSet(emotions[:divider], data[:divider]), DataSet(emotions[divider:], data[divider:]))
 
     def get_batch(self, size):
