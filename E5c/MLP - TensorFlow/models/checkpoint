@@ -1,0 +1,2 @@
+model_checkpoint_path: "models/MFCC.bin"
+all_model_checkpoint_paths: "models/MFCC.bin"
