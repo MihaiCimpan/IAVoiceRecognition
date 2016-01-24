@@ -17,24 +17,38 @@ public class Main {
         ArrayList<Interval> list;
         File[] wavFiles = getFiles(".wav");
         Map<String, ArrayList<Interval>> intervals = Parse(getFile());
+        double first = 0;
+        double second = 0;
+        double third = 0;
+        int i=0;
         for (File wavFile:wavFiles) {
             globalErrors = neuronalNetwork.getGlobalErrors(readFromWav(wavFile));
             alg = new FCM(globalErrors);
             list = alg.convert();
+            //List<Interval> l = intervals.get(getFilename(wavFile));
+            System.out.println(wavFile.getName());
+            //System.out.println("Praat");
+            //for(Interval in:l) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
+            //System.out.println("Segmentator");
+            //for(Interval in:list) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
             try{
-                //List<Interval> l = intervals.get(getFilename(wavFile));
-                //for(Interval i:l) System.out.println(i.getBegin() + " " + i.getEnd() + " " + i.isVocala());
                 compList = c.Compare(list, intervals.get(getFilename(wavFile)));
-                System.out.println(wavFile.getName());
-                for (Double d : compList) {
-                    System.out.println(d);
-                }
+                i++;
+                first += compList.get(0);
+                System.out.println(first + " : " + i);
+                second += compList.get(1);
+                System.out.println(second + " : " + i);
+                third += compList.get(2);
+                System.out.println(third + " : " + i);
             }
             catch (Exception ex){
-                System.out.println("Eroare la comparare" + ex.getMessage());
+                System.out.println("Eroare " + ex.getMessage());
                 ex.printStackTrace();
             }
         }
+        System.out.println("first " + first/i);
+        System.out.println("second " + second/i);
+        System.out.println("third " + third/i);
     }
 
     public static File getFile(){
@@ -67,8 +81,10 @@ public class Main {
         return fileName;
     }
 
-    public static ArrayList<Double> readFromWav(File file) {
-        try{
+    public static ArrayList<Double> readFromWav(File file)
+    {
+        try
+        {
             WavFile wavFile = WavFile.openWavFile(file);
             ArrayList<Double> values = new ArrayList<>();
             int numChannels = wavFile.getNumChannels();
