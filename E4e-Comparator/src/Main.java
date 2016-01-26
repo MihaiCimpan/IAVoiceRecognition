@@ -8,12 +8,12 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args)
     {
-        // Task t[] = new Task[5];
+        //Task t[] = new Task[5];
         //NeuronalNetwork[] Network = new NeuronalNetwork[5];
         Comparator c = new Comparator();
         NeuronalNetwork neuronalNetwork = new NeuronalNetwork();
         FCM alg;
-        List<Double> globalErrors,compList;
+        List<Double> compList;
         ArrayList<Interval> list;
         File[] wavFiles = getFiles(".wav");
         Map<String, ArrayList<Interval>> intervals = Parse(getFile());
@@ -22,33 +22,36 @@ public class Main {
         double third = 0;
         int i=0;
         for (File wavFile:wavFiles) {
-            globalErrors = neuronalNetwork.getGlobalErrors(readFromWav(wavFile));
-            alg = new FCM(globalErrors);
-            list = alg.convert();
-            //List<Interval> l = intervals.get(getFilename(wavFile));
-            System.out.println(wavFile.getName());
-            //System.out.println("Praat");
-            //for(Interval in:l) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
-            //System.out.println("Segmentator");
-            //for(Interval in:list) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
             try{
-                compList = c.Compare(list, intervals.get(getFilename(wavFile)));
-                i++;
-                first += compList.get(0);
-                System.out.println(first + " : " + i);
-                second += compList.get(1);
-                System.out.println(second + " : " + i);
-                third += compList.get(2);
-                System.out.println(third + " : " + i);
+                alg = new FCM(neuronalNetwork.getGlobalErrors(readFromWav(wavFile)));
+                if(alg.gErrors.isEmpty())
+                    continue;
+                list = alg.convert();
+                System.out.println(wavFile.getName());
+                //List<Interval> l = intervals.get(getFilename(wavFile));
+                //System.out.println("Praat");
+                //for(Interval in:l) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
+                //System.out.println("Segmentator");
+                //for(Interval in:list) System.out.println(in.getBegin() + " " + in.getEnd() + " " + in.isVocala());
+                if(list.size() > 0){
+                    compList = c.Compare(intervals.get(getFilename(wavFile)),list);
+                    System.out.println(compList.get(0));
+                    System.out.println(compList.get(1));
+                    System.out.println(compList.get(2));
+                    i++;
+                    first += compList.get(0);
+                    second += compList.get(1);
+                    third += compList.get(2);
+                }
             }
-            catch (Exception ex){
-                System.out.println("Eroare " + ex.getMessage());
-                ex.printStackTrace();
+            catch(Exception ex){
+                System.out.println(ex.getMessage());
             }
         }
-        System.out.println("first " + first/i);
-        System.out.println("second " + second/i);
-        System.out.println("third " + third/i);
+        System.out.println("first mean " + first/i);
+        System.out.println("second mean" + second/i);
+        System.out.println("third mean" + third/i);
+        System.out.println("Total compared objects: " + i);
     }
 
     public static File getFile(){
@@ -177,7 +180,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return list;
     }
 }
